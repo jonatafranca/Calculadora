@@ -269,6 +269,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Row(children: <Widget>[
               MaterialButton(
+                color: Colors.grey,
                 onPressed: () => _calcula(),
                 child: Text('Calcular'),
               ),
