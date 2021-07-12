@@ -37,7 +37,7 @@ void main() {
   testWidgets('verificação de limpeza da tela', (WidgetTester tester) async {
     await tester.pumpWidget(MyApp());
     //Busca por valores na tela
-    expect(find.text('13579'), findsNothing);
+    expect(find.text('13579  '), findsNothing);
     //Execução de operações
     await tester.tap(find.widgetWithText(MaterialButton, '1').first);
     await tester.pump();
@@ -55,7 +55,7 @@ void main() {
     await tester.tap(find.widgetWithText(MaterialButton, 'Zerar'));
     await tester.pump();
     //Verificação de limpeza
-    expect(find.text('13579'), findsNothing);
+    expect(find.text('13579  '), findsNothing);
   });
   testWidgets('verificação de resultados de multiplicação',
       (WidgetTester tester) async {
@@ -66,7 +66,7 @@ void main() {
     await tester.pump();
     //Busca por valores na tela
     expect(find.text('4 * 3'), findsNothing);
-    expect(find.text('12'), findsNothing);
+    expect(find.text('12.0'), findsNothing);
     //Execução de operações
     await tester.tap(find.widgetWithText(MaterialButton, '4').first);
     await tester.pump();
@@ -76,12 +76,129 @@ void main() {
     await tester.pump();
     //Busca por valores na tela
     expect(find.text('4 * 3'), findsOneWidget);
-    expect(find.text('12'), findsNothing);
+    expect(find.text('12.0'), findsNothing);
     //Execução do comando
     await tester.tap(find.widgetWithText(MaterialButton, 'Calcular'));
     await tester.pump();
     //Busca por resultados
     expect(find.text('4 * 3'), findsOneWidget);
-    expect(find.text('12'), findsOneWidget);
+    expect(find.text('12.0'), findsOneWidget);
+  });
+  testWidgets('verificação de resultados de divisão',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(MyApp());
+
+    //Garantir uma tela limpa
+    await tester.tap(find.widgetWithText(MaterialButton, 'Zerar'));
+    await tester.pump();
+    //Busca por valores na tela
+    expect(find.text('50 / 2'), findsNothing);
+    expect(find.text('25.0'), findsNothing);
+    //Execução de operações
+    await tester.tap(find.widgetWithText(MaterialButton, '5').first);
+    await tester.pump();
+    await tester.tap(find.widgetWithText(MaterialButton, '0').first);
+    await tester.pump();
+    await tester.tap(find.widgetWithText(MaterialButton, '/'));
+    await tester.pump();
+    await tester.tap(find.widgetWithText(MaterialButton, '2').last);
+    await tester.pump();
+    //Busca por valores na tela
+    expect(find.text('50 / 2'), findsOneWidget);
+    expect(find.text('25.0'), findsNothing);
+    //Execução do comando
+    await tester.tap(find.widgetWithText(MaterialButton, 'Calcular'));
+    await tester.pump();
+    //Busca por resultados
+    expect(find.text('50 / 2'), findsOneWidget);
+    expect(find.text('25.0'), findsOneWidget);
+  });
+  testWidgets('verificação de resultados de soma', (WidgetTester tester) async {
+    await tester.pumpWidget(MyApp());
+
+    //Garantir uma tela limpa
+    await tester.tap(find.widgetWithText(MaterialButton, 'Zerar'));
+    await tester.pump();
+    //Busca por valores na tela
+    expect(find.text('6 + 4'), findsNothing);
+    expect(find.text('10.0'), findsNothing);
+    //Execução de operações
+    await tester.tap(find.widgetWithText(MaterialButton, '6').first);
+    await tester.pump();
+    await tester.tap(find.widgetWithText(MaterialButton, '+'));
+    await tester.pump();
+    await tester.tap(find.widgetWithText(MaterialButton, '4').last);
+    await tester.pump();
+    //Busca por valores na tela
+    expect(find.text('6 + 4'), findsOneWidget);
+    expect(find.text('10.0'), findsNothing);
+    //Execução do comando
+    await tester.tap(find.widgetWithText(MaterialButton, 'Calcular'));
+    await tester.pump();
+    //Busca por resultados
+    expect(find.text('6 + 4'), findsOneWidget);
+    expect(find.text('10.0'), findsOneWidget);
+  });
+  testWidgets('verificação de resultados de subtração',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(MyApp());
+
+    //Garantir uma tela limpa
+    await tester.tap(find.widgetWithText(MaterialButton, 'Zerar'));
+    await tester.pump();
+    //Busca por valores na tela
+    expect(find.text('60 - 15'), findsNothing);
+    expect(find.text('45.0'), findsNothing);
+    //Execução de operações
+    await tester.tap(find.widgetWithText(MaterialButton, '6').first);
+    await tester.pump();
+    await tester.tap(find.widgetWithText(MaterialButton, '0').first);
+    await tester.pump();
+    await tester.tap(find.widgetWithText(MaterialButton, '-'));
+    await tester.pump();
+    await tester.tap(find.widgetWithText(MaterialButton, '1').last);
+    await tester.pump();
+    await tester.tap(find.widgetWithText(MaterialButton, '5').last);
+    await tester.pump();
+    //Busca por valores na tela
+    expect(find.text('60 - 15'), findsOneWidget);
+    expect(find.text('45.0'), findsNothing);
+    //Execução do comando
+    await tester.tap(find.widgetWithText(MaterialButton, 'Calcular'));
+    await tester.pump();
+    //Busca por resultados
+    expect(find.text('60 - 15'), findsOneWidget);
+    expect(find.text('45.0'), findsOneWidget);
+  });
+  testWidgets('verificação de resultados de porcentagem',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(MyApp());
+
+    //Garantir uma tela limpa
+    await tester.tap(find.widgetWithText(MaterialButton, 'Zerar'));
+    await tester.pump();
+    //Busca por valores na tela
+    expect(find.text('50 % 50'), findsNothing);
+    expect(find.text('25.0'), findsNothing);
+    //Execução de operações
+    await tester.tap(find.widgetWithText(MaterialButton, '5').first);
+    await tester.pump();
+    await tester.tap(find.widgetWithText(MaterialButton, '0').first);
+    await tester.pump();
+    await tester.tap(find.widgetWithText(MaterialButton, '%'));
+    await tester.pump();
+    await tester.tap(find.widgetWithText(MaterialButton, '5').last);
+    await tester.pump();
+    await tester.tap(find.widgetWithText(MaterialButton, '0').last);
+    await tester.pump();
+    //Busca por valores na tela
+    expect(find.text('50 % 50'), findsOneWidget);
+    expect(find.text('25.0'), findsNothing);
+    //Execução do comando
+    await tester.tap(find.widgetWithText(MaterialButton, 'Calcular'));
+    await tester.pump();
+    //Busca por resultados
+    expect(find.text('50 % 50'), findsOneWidget);
+    expect(find.text('25.0'), findsOneWidget);
   });
 }

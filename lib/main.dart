@@ -72,6 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
           break;
       }
       resultado = result.toString();
+      print(resultado);
     });
   }
 
