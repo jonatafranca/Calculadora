@@ -31,23 +31,48 @@ void main() {
     expect(find.widgetWithText(MaterialButton, 'Calcular'), findsOneWidget);
     expect(find.widgetWithText(MaterialButton, 'Zerar'), findsOneWidget);
   });
+  testWidgets('verificação de limpeza da tela', (WidgetTester tester) async {
+    await tester.pumpWidget(MyApp());
+    //Busca por valores na tela
+    expect(find.widgetWithText(Text, '13579'), findsNothing);
+    //Execução de operações
+    await tester.tap(find.widgetWithText(MaterialButton, '1').first);
+    await tester.pump();
+    await tester.tap(find.widgetWithText(MaterialButton, '3').first);
+    await tester.pump();
+    await tester.tap(find.widgetWithText(MaterialButton, '5').first);
+    await tester.pump();
+    await tester.tap(find.widgetWithText(MaterialButton, '7').first);
+    await tester.pump();
+    await tester.tap(find.widgetWithText(MaterialButton, '9').first);
+    await tester.pump();
+    //Busca pelo valor digitado
+    expect(find.widgetWithText(Text, '13579'), findsOneWidget);
+    //Limpeza
+    await tester.tap(find.widgetWithText(MaterialButton, 'Zerar'));
+    await tester.pump();
+    //Verificação de limpeza
+    expect(find.widgetWithText(Text, '13579'), findsNothing);
+  });
   testWidgets('verificação de resultados de multiplicação',
       (WidgetTester tester) async {
     await tester.pumpWidget(MyApp());
 
+    //Garantir uma tela limpa
+    await tester.tap(find.widgetWithText(MaterialButton, 'Zerar'));
+    await tester.pump();
     //Busca por valores na tela
     expect(find.widgetWithText(Text, '12'), findsNothing);
     //Execução de operações
-    //Erro, a função tap encontra dois botões iguais
-    await tester.tap(find.widgetWithText(MaterialButton, '4'));
+    await tester.tap(find.widgetWithText(MaterialButton, '4').first);
     await tester.pump();
     await tester.tap(find.widgetWithText(MaterialButton, '*'));
     await tester.pump();
-    // await tester.tap(find.widgetWithText(MaterialButton, '3'));
+    await tester.tap(find.widgetWithText(MaterialButton, '3').last);
     await tester.pump();
     await tester.tap(find.widgetWithText(MaterialButton, 'Calcular'));
     await tester.pump();
     //Busca por resultados
-    expect(find.widgetWithText(Text, '12'), findsOneWidget);
+    expect(find.widgetWithText(Text, '12.00'), findsOneWidget);
   });
 }
