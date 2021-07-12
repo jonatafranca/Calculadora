@@ -267,20 +267,22 @@ class _MyHomePageState extends State<MyHomePage> {
               width: 20,
               height: 20,
             ),
-            Row(children: <Widget>[
-              MaterialButton(
-                color: Colors.grey,
-                textColor: Colors.white,
-                onPressed: () => _calcula(),
-                child: Text('Calcular'),
-              ),
-              MaterialButton(
-                color: Colors.blue,
-                textColor: Colors.white,
-                onPressed: () => _limpar(),
-                child: Text('Zerar'),
-              ),
-            ]),
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  MaterialButton(
+                    color: Colors.grey,
+                    textColor: Colors.white,
+                    onPressed: () => _calcula(),
+                    child: Text('Calcular'),
+                  ),
+                  MaterialButton(
+                    color: Colors.blue,
+                    textColor: Colors.white,
+                    onPressed: () => _limpar(),
+                    child: Text('Zerar'),
+                  ),
+                ]),
             SizedBox(
               width: 20,
               height: 100,
